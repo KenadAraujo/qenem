@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: qenem
+      POSTGRES_PASSWORD: rootroot
+      POSTGRES_DB: QEnem
+    ports:
+      - 5432:5432
+    networks:
+      - app_db
+    hostname: db
+    container_name: db
+  api:
+    build: .
+    ports:
+      - 9000:9000
+    expose:
+      - 9000
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: QEnem
+      DB_USER: qenem
+      DB_PASSWORD: rootroot
+      SERVER_PORT: 9000
+    depends_on:
+      - db
+    networks:
+      - app_db
+    hostname: api
+    container_name: api
+networks:
+  app_db:
