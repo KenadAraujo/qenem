@@ -23,10 +23,19 @@ public class Questao {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "QUANTIDADE_ALTERNATIVA")
+    private int quantidadeAlternativa;
+
     @ManyToMany
     @JoinTable(name = "CADERNO_QUESTAO",
             joinColumns = {@JoinColumn(name = "FK_QUESTAO")},
             inverseJoinColumns = {@JoinColumn(name = "FK_CADERNO") }
     )
     private Set<Caderno> cadernos;
+
+    @OneToMany(mappedBy = "questao")
+    private Set<TextoApoio> textos;
+
+    @OneToMany(mappedBy = "questao")
+    private Set<Alternativa> alternativas;
 }
