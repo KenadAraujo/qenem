@@ -35,9 +35,7 @@ public class BancaService {
         PageRequest request = PageRequest.of(0,10);
         Page<BancaModel> bancas = repository.findAll(request);
         List<Banca> banca = new ArrayList<>();
-        bancas.forEach(bancaModel -> {
-            banca.add(bancaModel.toRecord());
-        });
+        bancas.forEach(bancaModel -> banca.add(bancaModel.toRecord()));
         return new PageImpl<>(banca,request,bancas.getTotalElements());
     }
 }

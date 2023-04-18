@@ -15,7 +15,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Entity
 @Table(name = "BANCA")
-public class BancaModel extends AbstractModel<Banca>{
+public class BancaModel implements AbstractModel<Banca>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

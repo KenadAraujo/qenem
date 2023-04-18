@@ -1,6 +1,6 @@
 package com.polligonalApps.QEnem.models;
 
-public abstract class AbstractModel<T> {
+public interface AbstractModel<T> {
 
-    public abstract T toRecord();
+    public T toRecord();
 }
