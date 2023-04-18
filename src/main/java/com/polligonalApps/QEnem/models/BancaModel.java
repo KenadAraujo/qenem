@@ -1,5 +1,6 @@
 package com.polligonalApps.QEnem.models;
 
+import com.polligonalApps.QEnem.domain.dto.Banca;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Entity
 @Table(name = "BANCA")
-public class Banca {
+public class BancaModel extends AbstractModel<Banca>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +26,14 @@ public class Banca {
     private String nome;
 
     @OneToMany(mappedBy = "banca")
-    private Set<Caderno> cadernos;
+    private Set<CadernoModel> cadernos;
+
+    public BancaModel(Banca banca) {
+        this.nome = banca.nome();
+    }
+
+    @Override
+    public Banca toRecord() {
+        return new Banca(this.id,this.nome);
+    }
 }

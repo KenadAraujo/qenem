@@ -12,7 +12,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Entity
 @Table(name = "ALTERNATIVA")
-public class Alternativa {
+public class AlternativaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +33,5 @@ public class Alternativa {
 
     @ManyToOne
     @JoinColumn(name = "QUESTAO_ID")
-    private Questao questao;
+    private QuestaoModel questao;
 }

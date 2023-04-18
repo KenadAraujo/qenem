@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Year;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,7 +14,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Entity
 @Table(name = "QUESTAO")
-public class Questao {
+public class QuestaoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +26,14 @@ public class Questao {
             joinColumns = {@JoinColumn(name = "FK_QUESTAO")},
             inverseJoinColumns = {@JoinColumn(name = "FK_CADERNO") }
     )
-    private Set<Caderno> cadernos;
+    private Set<CadernoModel> cadernos;
 
     @OneToMany(mappedBy = "questao")
-    private Set<TextoApoio> textos;
+    private Set<TextoApoioModel> textos;
 
     @Column(name = "QUANTIDADE_ALTERNATIVA")
     private int quantidadeAlternativa;
 
     @OneToMany(mappedBy = "questao")
-    private Set<Alternativa> alternativas;
+    private Set<AlternativaModel> alternativas;
 }
