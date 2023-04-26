@@ -31,11 +31,10 @@ public class BancaService {
         throw new BusinessException("O nome da banca não pode ser nulo.");
     }
 
-    public Page<Banca> listar(){
-        PageRequest request = PageRequest.of(0,10);
-        Page<BancaModel> bancas = repository.findAll(request);
+    public Page<Banca> listar(Pageable pagina){
+        Page<BancaModel> bancas = repository.findAll(pagina);
         List<Banca> banca = new ArrayList<>();
         bancas.forEach(bancaModel -> banca.add(bancaModel.toRecord()));
-        return new PageImpl<>(banca,request,bancas.getTotalElements());
+        return new PageImpl<>(banca,pagina,bancas.getTotalElements());
     }
 }
