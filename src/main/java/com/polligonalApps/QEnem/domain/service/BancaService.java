@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BancaService {
@@ -22,13 +23,14 @@ public class BancaService {
         this.repository = repository;
     }
 
-    public boolean criar(Banca banca) throws BusinessException {
+    public Banca criar(Banca banca) throws BusinessException {
         if(banca.nome()!=null){
             BancaModel bancaModel = new BancaModel(banca);
-            this.repository.save(bancaModel);
-            return true;
+            bancaModel = this.repository.save(bancaModel);
+            return bancaModel.toRecord();
+        }else{
+            throw new BusinessException("O nome da banca não pode ser nulo.");
         }
-        throw new BusinessException("O nome da banca não pode ser nulo.");
     }
 
     public Page<Banca> listar(Pageable pagina){
