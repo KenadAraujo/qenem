@@ -4,10 +4,8 @@ import com.polligonalApps.QEnem.domain.dto.Banca;
 import com.polligonalApps.QEnem.domain.exceptions.BusinessException;
 import com.polligonalApps.QEnem.models.BancaModel;
 import com.polligonalApps.QEnem.repository.BancaRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +23,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "NF-e", description = "Operações e consultas a Banca de questões")
-@RestController
-@RequestMapping(name = "/banca")
+@Tag(name = "Banca", description = "Operações e consultas a Banca de questões")
 @Slf4j
+@RestController
+@RequestMapping(path = "/banca")
 public class BancaController {
 
     @Autowired
@@ -37,7 +39,7 @@ public class BancaController {
                     content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = Page.class)) }) })
     @GetMapping
-    public ResponseEntity<Page<Banca>> listar(Pageable pageable){
+    public ResponseEntity<Page<Banca>> listar(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC)Pageable pageable){
         Page<Banca> bancas = bancaService.listar(pageable);
         return ResponseEntity.ok(bancas);
     }
