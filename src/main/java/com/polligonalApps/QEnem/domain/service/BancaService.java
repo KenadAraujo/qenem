@@ -37,4 +37,16 @@ public class BancaService {
         bancas.forEach(bancaModel -> banca.add(bancaModel.toRecord()));
         return new PageImpl<>(banca,pagina,bancas.getTotalElements());
     }
+
+    public Banca deletar(Banca banca) throws BusinessException {
+        if(banca==null || banca.id()==null)
+            throw new BusinessException("Não é possível deletar uma banca nula ou sem identificador");
+        Optional<BancaModel> model = repository.findById(banca.id());
+        if(model.isPresent()){
+            repository.delete(model.get());
+            return banca;
+        }else{
+            throw new BusinessException("A banca não existe!");
+        }
+    }
 }
