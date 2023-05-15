@@ -1,5 +1,6 @@
 package com.polligonalApps.QEnem.models;
 
+import com.polligonalApps.QEnem.domain.dto.Caderno;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Entity
 @Table(name = "CADERNO")
-public class CadernoModel {
+public class CadernoModel implements AbstractModel<Caderno>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +32,9 @@ public class CadernoModel {
 
     @ManyToMany(mappedBy = "cadernos")
     private Set<QuestaoModel> questoes;
+
+    @Override
+    public Caderno toRecord() {
+        return new Caderno(this.id,this.ano,this.banca.toRecord());
+    }
 }
