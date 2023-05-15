@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -33,8 +35,15 @@ public class CadernoModel implements AbstractModel<Caderno>{
     @ManyToMany(mappedBy = "cadernos")
     private Set<QuestaoModel> questoes;
 
+    public CadernoModel(Caderno caderno) {
+        this.id = caderno.id();
+        this.ano = Year.of(caderno.ano());
+        this.banca = new BancaModel(caderno.banca());
+        this.questoes = new HashSet<>();
+    }
+
     @Override
     public Caderno toRecord() {
-        return new Caderno(this.id,this.ano,this.banca.toRecord());
+        return new Caderno(this.id,this.ano.getValue(),this.banca.toRecord());
     }
 }

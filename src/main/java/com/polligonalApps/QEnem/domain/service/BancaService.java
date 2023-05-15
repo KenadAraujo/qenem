@@ -49,4 +49,12 @@ public class BancaService {
             throw new BusinessException("A banca não existe!");
         }
     }
+
+    public Banca buscar(Banca banca) throws BusinessException {
+        if(banca.id()!=null){
+            Optional<BancaModel> bancaModel = this.repository.findById(banca.id());
+            return bancaModel.isPresent()? bancaModel.get().toRecord(): null;
+        }
+        throw new BusinessException("O id não pode ser nulo!");
+    }
 }
