@@ -20,10 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Caderno", description = "Operações e consultas ao Caderno de questões")
 @Slf4j
@@ -41,7 +38,7 @@ public class CadernoController {
                     content = {
                             @Content(mediaType = "application/json", schema = @Schema(implementation = Page.class)) }) })
     @GetMapping
-    public ResponseEntity<Page<Caderno>> listar(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+    public ResponseEntity<Page<Caderno>> listar(@PageableDefault(page = 0, size = 10, sort = "ano", direction = Sort.Direction.DESC) Pageable pageable){
         Page<Caderno> cadernos = cadernoService.listar(pageable);
         return ResponseEntity.ok(cadernos);
     }
@@ -58,6 +55,22 @@ public class CadernoController {
         caderno =  cadernoService.criar(caderno);
         if(caderno!=null){
             return ResponseEntity.ok(cadernoModel.toRecord());
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @Operation(summary = "Deleta um caderno e todas as questões relacionadas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Retorna o caderno deletado",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = Banca.class)) }) })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Caderno> deletar(@PathVariable("id")Long id) throws BusinessException {
+        Caderno caderno = new Caderno(id,0,null);
+        caderno =  cadernoService.deletar(caderno);
+        if(caderno!=null){
+            return ResponseEntity.ok(caderno);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }

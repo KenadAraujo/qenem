@@ -1,13 +1,12 @@
 package com.polligonalApps.QEnem.repository;
 
 import com.polligonalApps.QEnem.models.CadernoModel;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.polligonalApps.QEnem.models.QuestaoModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CadernoRepository extends CrudRepository<CadernoModel, Long> {
+public interface QuestaoRepository extends CrudRepository<QuestaoModel,Long> {
 
-    Page<CadernoModel> findAll(Pageable pagina);
+    public void deleteByCadernos(CadernoModel cadernoModel);
 }

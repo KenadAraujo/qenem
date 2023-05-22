@@ -58,3 +58,5 @@ ALTER TABLE public.texto_apoio ADD CONSTRAINT fk_texto_apoio_questao
 
 -- MIGRAÇÃO DE DADOS
 INSERT INTO public.banca VALUES (1,'INEP/ENEM');
+
+INSERT INTO public.caderno VALUES (1,2023,1);
